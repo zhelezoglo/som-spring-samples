@@ -1,0 +1,78 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+    <bean id="inject" class="techblog.zabuchy.net.InjectMe"/>
+
+    <bean id="person" class="techblog.zabuchy.net.Person">
+        <property name="name" value="Tomasz Muras"/>
+        <property name="website" value="http://techblog.zabuchy.net"/>
+    </bean>
+
+
+    <aop:config>
+        <aop:aspect ref="inject">
+            <aop:pointcut expression="execution(* techblog.zabuchy.net.Person.*(..))"
+                          id="pointcut1"/>
+            <aop:after-throwing throwing="exception" method="injectException" pointcut-ref="pointcut1"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!--<aop:config>-->
+    <!--<aop:aspect ref="inject">-->
+    <!--<aop:pointcut expression="execution(* techblog.zabuchy.net.Person.*(..))"-->
+    <!--id="pointcut1" />-->
+    <!--<aop:around method="injectAround" pointcut-ref="pointcut1" />-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+    <!--
+        <aop:config>
+            <aop:aspect ref="inject">
+                <aop:pointcut expression="execution(* techblog.zabuchy.net.Person.*(..))"
+                    id="pointcut1" />
+                <aop:after method="injectFinally" pointcut-ref="pointcut1" />
+            </aop:aspect>
+        </aop:config>
+     -->
+
+    <!--
+        <aop:config>
+            <aop:aspect ref="inject">
+                <aop:pointcut expression="execution(* techblog.zabuchy.net.Person.*(..))"
+                    id="pointcut1" />
+                <aop:after-returning returning="ret" method="injectAfter" pointcut-ref="pointcut1" />
+            </aop:aspect>
+        </aop:config>
+    -->
+    <!--
+        <aop:config>
+            <aop:aspect ref="inject">
+                <aop:pointcut expression="execution(* techblog.zabuchy.net.Person.*(..))"
+                    id="pointcut1" />
+                <aop:before method="injectMethod" pointcut-ref="pointcut1" />
+            </aop:aspect>
+        </aop:config>
+    -->
+
+    <!--		<aop:aspect id="aspect1" ref="inject">-->
+    <!--			-->
+    <!--
+        <aop:pointcut expression="execution(* aop.CustomerService.*(..))"
+    -->
+    <!--				id="pointcut1"/>-->
+    <!--		<aop:pointcut expression="within(aop.*)" id="pointcut1"/> -->
+    <!--			<aop:pointcut-->
+    <!--
+        expression="@target(org.springframework.transaction.annotation.Transactional)"
+    -->
+    <!--				id="pointcut1" />-->
+    <!--			-->
+    <!--				<aop:pointcut expression="call(void privateMethod())"-->
+    <!--				id="pointcut1"/>-->
+    <!--			-->
+    <!--			<aop:before method="injectMethod" pointcut-ref="pointcut1" />-->
+    <!--		</aop:aspect>-->
+    <!--	</aop:config>-->
+
+</beans>

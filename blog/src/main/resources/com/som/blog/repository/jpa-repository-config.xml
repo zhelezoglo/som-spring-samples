@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans profile="REPOSITORY_JDBC"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa">
+
+    <!--<jpa:repositories base-package="com.som.blog.repository"/>-->
+
+    <!---->
+    <!--<bean id="userService" class="com.som.blog.repository.impl.jdbc.UserRepository">-->
+        <!--<constructor-arg ref="jdbcTemplate"/>-->
+    <!--</bean>-->
+    <!--<bean id="articleService" class="com.som.blog.repository.impl.jdbc.ArticleRepository">-->
+        <!--<constructor-arg ref="jdbcTemplate"/>-->
+    <!--</bean>-->
+    <!--<bean id="commentService" class="com.som.blog.repository.impl.jdbc.CommentRepository">-->
+        <!--<constructor-arg ref="jdbcTemplate"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+        <!--<constructor-arg ref="dataSource"/>-->
+    <!--</bean>-->
+</beans>

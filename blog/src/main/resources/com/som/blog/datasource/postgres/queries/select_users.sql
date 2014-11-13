@@ -1,0 +1,1 @@
+SELECT user_id, login, password, email, name, role FROM users WHERE user_id = :user_id;

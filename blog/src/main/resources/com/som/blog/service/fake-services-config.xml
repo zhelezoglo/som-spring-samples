@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans profile="SERVICES_FAKE"
+
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd
+    ">
+
+    <bean id="userService" class="com.som.blog.service.impl.fake.UserService"/>
+    <bean id="articleService" class="com.som.blog.service.impl.fake.ArticleService"/>
+    <bean id="commentService" class="com.som.blog.service.impl.fake.CommentService"/>
+</beans>

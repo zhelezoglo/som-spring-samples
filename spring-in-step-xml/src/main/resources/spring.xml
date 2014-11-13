@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+
+    <bean id="ds" class="org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean">
+        <property name="databaseType" value="H2"/>
+        <property name="databasePopulator">
+            <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+                <property name="scripts" value="setup.sql"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+        <constructor-arg ref="ds"/>
+    </bean>
+
+    <bean class="com.som.spring.samples.in.step.xml.DatabaseCustomerService" id="databaseCustomerService">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean class="com.som.spring.samples.in.step.xml.CustomerClient" id="client">
+        <property name="customerService" ref="databaseCustomerService"/>
+    </bean>
+
+</beans>

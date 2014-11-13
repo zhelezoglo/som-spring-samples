@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    ">
+
+    <aop:aspectj-autoproxy/>
+
+    <bean id="magician" class="com.som.spring.samples.in.action.idol.Magician"/>
+    <bean id="volunteer" class="com.som.spring.samples.in.action.idol.Volunteer"/>
+
+    <bean id="audience" class="com.som.spring.samples.in.action.idol.Audience"/>
+
+    <bean id="duke" class="com.som.spring.samples.in.action.idol.Juggler">
+        <constructor-arg value="15"/>
+    </bean>
+
+    <bean id="sonnet29" class="com.som.spring.samples.in.action.idol.Sonnet29"/>
+
+    <bean id="poeticDuke" class="com.som.spring.samples.in.action.idol.PoeticJuggler">
+        <constructor-arg value="15"/>
+        <constructor-arg ref="sonnet29"/>
+    </bean>
+
+    <bean id="theStage" class="com.som.spring.samples.in.action.idol.Stage" factory-method="getInstance"/>
+
+    <bean id="auditorium" class="com.som.spring.samples.in.action.idol.Auditorium" init-method="turnOnLights"
+          destroy-method="turnOffLights"/>
+
+    <!--<bean id="kenny" class="com.som.spring.samples.in.action.idol.Instrumentalist">-->
+    <!--<property name="song" value="Jingle Bells"/>-->
+    <!--<property name="instrument" ref="piano"/>-->
+    <!--</bean>-->
+
+    <bean id="kenny" class="com.som.spring.samples.in.action.idol.Instrumentalist" p:song="Jingle Bells"
+          p:instrument-ref="saxophone"/>
+
+    <bean id="saxophone" class="com.som.spring.samples.in.action.idol.Saxophone"/>
+    <bean id="piano" class="com.som.spring.samples.in.action.idol.Piano"/>
+
+    <bean id="hank" class="com.som.spring.samples.in.action.idol.OneManBand">
+        <property name="instruments">
+            <set>
+                <ref bean="saxophone"/>
+                <ref bean="piano"/>
+            </set>
+        </property>
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="audience">
+            <aop:pointcut id="performance"
+                          expression="execution(* com.som.spring.samples.in.action.idol.Performer.*(..))"/>
+            <!--<aop:before pointcut-ref="performance"-->
+            <!--method="takeSeats"/>-->
+            <!--<aop:before pointcut-ref="performance"-->
+            <!--method="turnOffCellPhones"/>-->
+            <!--<aop:after-returning pointcut-ref="performance"-->
+            <!--method="applaud"/>-->
+            <!--<aop:after-throwing pointcut-ref="performance"-->
+            <!--method="demandRefund"/>-->
+            <aop:around pointcut-ref="performance" method="watchPerformance"/>
+        </aop:aspect>
+
+        <aop:aspect ref="magician">
+            <aop:pointcut id="thinking"
+                          expression="execution(* com.som.spring.samples.in.action.idol.Thinker.thinkOfSomething(String)) and args(thoughts)"/>
+            <aop:before pointcut-ref="thinking" method="interceptThoughts" arg-names="thoughts"/>
+        </aop:aspect>
+
+        <!--<aop:aspect>-->
+        <!--<aop:declare-parents types-matching="com.som.spring.samples.in.action.idol.Performer+"-->
+        <!--implement-interface="com.som.spring.samples.in.action.idol.Contestant"-->
+        <!--default-impl="com.som.spring.samples.in.action.idol.GraciousContestant"/>-->
+        <!--</aop:aspect>-->
+    </aop:config>
+
+    <bean class="com.som.spring.samples.in.action.idol.ContestIntroducer"/>
+
+    <!--<bean id="criticismEngine"-->
+    <!--class="com.som.spring.samples.in.action.idol.CriticismEngineImpl">-->
+    <!--<property name="criticismPool">-->
+    <!--<list>-->
+    <!--<value>I'm not being rude, but that was appalling.</value>-->
+    <!--<value>You may be the least talented person in this show.</value>-->
+    <!--<value>Do every one a favor and keep your day job.</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean class="com.som.spring.samples.in.action.idol.JudgeAspect"-->
+    <!--factory-method="aspectOf">-->
+    <!--<property name="criticismEngine" ref="criticismEngine"/>-->
+    <!--</bean>-->
+
+</beans>
